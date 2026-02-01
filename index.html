@@ -9,7 +9,6 @@
 :root{
     --vermelho:#fb5533;
     --vermelho-escuro:#d73211;
-    --cinza:#777;
     --borda:#e5e5e5;
 }
 
@@ -24,7 +23,6 @@ body{
     color:#333;
 }
 
-/* SPLASH */
 #splash{
     position:fixed;
     inset:0;
@@ -34,37 +32,54 @@ body{
     justify-content:center;
     z-index:9999;
 }
-#splash img{width:120px}
-
-/* TOPO */
-.header{
-    background:linear-gradient(90deg,var(--vermelho),#ff6a3a);
-    padding:14px 16px;
-    display:flex;
-    align-items:center;
+#splash img{
+    width:120px;
 }
-.header img{height:34px}
 
-/* CONTAINER */
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:72px;
+    background:#ffffff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-bottom:1px solid var(--borda);
+    z-index:1000;
+}
+.header img{
+    height:42px;
+}
+
 .container{
     max-width:420px;
-    margin:18px auto;
+    margin:100px auto 18px;
     padding:16px;
 }
 
-/* TEXTO */
-.title{font-size:16px;margin-bottom:12px}
-.row{
-    display:flex;justify-content:space-between;
-    font-size:14px;padding:6px 0
-}
-.row strong{color:var(--vermelho)}
-.timer{
-    font-size:13px;color:var(--vermelho);
-    margin:10px 0 16px
+.title{
+    font-size:16px;
+    margin-bottom:12px;
 }
 
-/* PIX */
+.row{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    padding:6px 0;
+}
+.row strong{
+    color:var(--vermelho);
+}
+
+.timer{
+    font-size:13px;
+    color:var(--vermelho);
+    margin:10px 0 16px;
+}
+
 .pix-box{
     text-align:center;
     border-top:1px solid var(--borda);
@@ -72,14 +87,12 @@ body{
     padding:18px 0;
 }
 
-/* QR CENTRALIZADO */
 #qrcode{
     display:flex;
     justify-content:center;
     margin:12px 0;
 }
 
-/* BOTÕES */
 button{
     width:100%;
     padding:11px;
@@ -90,7 +103,10 @@ button{
     font-size:14px;
     cursor:pointer;
 }
-button:hover{background:var(--vermelho);color:#fff}
+button:hover{
+    background:var(--vermelho);
+    color:#fff;
+}
 
 button.primary{
     background:var(--vermelho);
@@ -98,20 +114,28 @@ button.primary{
     border:none;
     margin-top:12px;
 }
-button.primary:hover{background:var(--vermelho-escuro)}
+
+button.primary:hover{
+    background:var(--vermelho-escuro);
+}
+
 button:disabled{
-    background:#eee;color:#999;
-    border:1px solid #ddd;cursor:not-allowed
+    background:#eee;
+    color:#999;
+    border:1px solid #ddd;
+    cursor:not-allowed;
 }
 
-/* LISTA */
 .instructions{
-    font-size:13px;margin:16px 0;
-    padding-left:18px
+    font-size:13px;
+    margin:16px 0;
+    padding-left:18px;
 }
-.instructions li{margin-bottom:6px}
 
-/* EXPIRADO */
+.instructions li{
+    margin-bottom:6px;
+}
+
 .expired{
     text-align:center;
     color:#d32f2f;
@@ -120,31 +144,26 @@ button:disabled{
     display:none;
 }
 
-/* RODAPÉ */
 .footer{
     margin-top:18px;
     text-align:center;
     font-size:11px;
     color:#777;
 }
-.footer strong{color:#555}
-
-@media(max-width:480px){
-    .container{padding:12px}
+.footer strong{
+    color:#555;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH -->
 <div id="splash">
     <img src="./logo1.jpeg" alt="Logo">
 </div>
 
-<!-- TOPO -->
 <div class="header">
-    <img src="./logo.jpeg" alt="Logo">
+    <img src="./logo1.jpeg" alt="Logo">
 </div>
 
 <div class="container">
@@ -153,7 +172,7 @@ button:disabled{
 
 <div class="row">
     <span>Pagamento Total</span>
-    <strong>R$ 287,00</strong>
+    <strong>R$ 332,06</strong>
 </div>
 
 <div class="timer">
@@ -161,14 +180,22 @@ button:disabled{
 </div>
 
 <div class="pix-box">
-    <div><strong>Pix</strong></div>
+    <strong>Pix</strong>
 
-    <!-- QR CODE GERADO AUTOMATICAMENTE -->
     <div id="qrcode"></div>
 
-    <!-- CÓDIGO PIX (EDITE AQUI) -->
-    <pre id="codigo" style="display:none;">
-00020101021226950014br.gov.bcb.pix2573qrcode.mtbank.com.br/spi-gateway/brx/cob/9077797d14e643169600512bd526e5a85204000053039865802BR5914Questcore Ltda6008Toritama61085512500062070503***63041624    </pre>
+    <!-- PIX INVISÍVEL MAS COPIÁVEL -->
+    <textarea id="codigo" readonly
+    style="
+        position:absolute;
+        opacity:0;
+        width:1px;
+        height:1px;
+        border:0;
+        padding:0;
+        resize:none;
+    ">
+00020101021226950014br.gov.bcb.pix2573qrcode.mtbank.com.br/spi-gateway/brx/cob/a0217debb83a4e979bdd2a49b03b973a5204000053039865802BR5914Questcore Ltda6008Toritama61085512500062070503***6304B99B</textarea>
 
     <button id="copiar">Copiar código Pix</button>
 </div>
@@ -193,71 +220,80 @@ button:disabled{
 
 </div>
 
-<!-- BIBLIOTECA QR CODE LOCAL -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-/* SPLASH 3s */
-window.onload = () => {
-    setTimeout(()=>{
+document.addEventListener("DOMContentLoaded", () => {
+
+    setTimeout(() => {
         document.getElementById("splash").style.display = "none";
-    },3000);
+    }, 2000);
 
     gerarQRCode();
-};
 
-/* GERAR QR CODE A PARTIR DO PIX */
-function gerarQRCode(){
-    const codigoPix = document.getElementById("codigo").textContent.trim();
+    let tempo = 600;
+    const elTempo = document.getElementById("tempo");
+    const btnCopiar = document.getElementById("copiar");
+    const expirado = document.getElementById("expirado");
+
+    const intervalo = setInterval(() => {
+        const m = Math.floor(tempo / 60);
+        const s = tempo % 60;
+
+        elTempo.textContent =
+            String(m).padStart(2, "0") + ":" +
+            String(s).padStart(2, "0");
+
+        if (tempo <= 0) {
+            clearInterval(intervalo);
+            btnCopiar.disabled = true;
+            expirado.style.display = "block";
+        }
+        tempo--;
+    }, 1000);
+
+    // COPIAR PIX – COMPATÍVEL
+    btnCopiar.onclick = () => {
+        const textarea = document.getElementById("codigo");
+
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length);
+
+        let copiou = false;
+
+        try {
+            copiou = document.execCommand("copy");
+        } catch (e) {
+            copiou = false;
+        }
+
+        btnCopiar.textContent = copiou
+            ? "Código copiado"
+            : "Segure para copiar";
+
+        setTimeout(() => {
+            btnCopiar.textContent = "Copiar código Pix";
+        }, 2000);
+    };
+
+    document.getElementById("okBtn").onclick = () => {
+        window.location.href = "https://wa.me/";
+    };
+});
+
+function gerarQRCode() {
+    const codigoPix = document.getElementById("codigo").value.trim();
     const qrDiv = document.getElementById("qrcode");
     qrDiv.innerHTML = "";
 
-    new QRCode(qrDiv,{
+    new QRCode(qrDiv, {
         text: codigoPix,
-        width:220,
-        height:220
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.H
     });
 }
-
-/* CONTADOR */
-let tempo = 600;
-const elTempo = document.getElementById("tempo");
-const btnCopiar = document.getElementById("copiar");
-const expirado = document.getElementById("expirado");
-
-const intervalo = setInterval(()=>{
-    const m = Math.floor(tempo/60);
-    const s = tempo%60;
-
-    elTempo.textContent =
-        String(m).padStart(2,"0")+":"+
-        String(s).padStart(2,"0");
-
-    if(tempo <= 0){
-        clearInterval(intervalo);
-        btnCopiar.disabled = true;
-        expirado.style.display = "block";
-    }
-    tempo--;
-},1000);
-
-/* COPIAR PIX */
-btnCopiar.onclick = () => {
-    navigator.clipboard.writeText(
-        document.getElementById("codigo").textContent.trim()
-    );
-    btnCopiar.textContent = "Código copiado";
-};
-
-/* OK → VOLTAR PARA WHATSAPP */
-document.getElementById("okBtn").onclick = () => {
-    const origem = document.referrer;
-    if (origem && (origem.includes("wa.me") || origem.includes("whatsapp"))) {
-        window.location.href = origem;
-    } else {
-        window.location.href = "https://wa.me/";
-    }
-};
 </script>
 
 </body>
